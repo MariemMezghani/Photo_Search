@@ -8,35 +8,40 @@ import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
 
-class MainFragment: Fragment() {
+class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
-    val adapter = PhotoAdapter()
+    val adapter = PhotoAdapter(PhotoListener { photoId ->
+        viewModel.onItemClicked(photoId)
+    })
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       val binding = FragmentMainBinding.inflate(inflater)
+        val binding = FragmentMainBinding.inflate(inflater)
 
         // get the view model
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
-            .get(MainViewModel::class.java)
+                .get(MainViewModel::class.java)
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
         binding.photosRecyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
-            header = PhotoLoadStateAdapter { adapter.retry() },
-            footer = PhotoLoadStateAdapter { adapter.retry() },
+                header = PhotoLoadStateAdapter { adapter.retry() },
+                footer = PhotoLoadStateAdapter { adapter.retry() },
         )
         binding.buttonRetry.setOnClickListener {
             adapter.retry()
@@ -47,7 +52,7 @@ class MainFragment: Fragment() {
 
         }
         binding.searchText.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     // make sure the recycler view scrolls to position 0
@@ -64,23 +69,23 @@ class MainFragment: Fragment() {
             }
         })
         binding.searchText
-            .setOnSuggestionListener(object :
-                androidx.appcompat.widget.SearchView.OnSuggestionListener {
-                override fun onSuggestionSelect(position: Int): Boolean {
-                    return true
-                }
+                .setOnSuggestionListener(object :
+                        androidx.appcompat.widget.SearchView.OnSuggestionListener {
+                    override fun onSuggestionSelect(position: Int): Boolean {
+                        return true
+                    }
 
-                // when the user clicks on a query from the search history, results are searched again
-                override fun onSuggestionClick(position: Int): Boolean {
-                    val selectedView: androidx.cursoradapter.widget.CursorAdapter? =
-                        binding.searchText.getSuggestionsAdapter()
-                    val cursor: Cursor = selectedView?.getItem(position) as Cursor
-                    val index: Int =
-                        cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
-                    binding.searchText.setQuery(cursor.getString(index), true)
-                    return true
-                }
-            })
+                    // when the user clicks on a query from the search history, results are searched again
+                    override fun onSuggestionClick(position: Int): Boolean {
+                        val selectedView: androidx.cursoradapter.widget.CursorAdapter? =
+                                binding.searchText.getSuggestionsAdapter()
+                        val cursor: Cursor = selectedView?.getItem(position) as Cursor
+                        val index: Int =
+                                cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
+                        binding.searchText.setQuery(cursor.getString(index), true)
+                        return true
+                    }
+                })
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -91,8 +96,8 @@ class MainFragment: Fragment() {
 
                 // empty view
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached &&
-                    adapter.itemCount < 1
+                        loadState.append.endOfPaginationReached &&
+                        adapter.itemCount < 1
                 ) {
                     photosRecyclerview.isVisible = false
                     textViewEmpty.isVisible = true
@@ -101,6 +106,15 @@ class MainFragment: Fragment() {
                 }
             }
         }
+        // Add an Observer on the state variable when an item is clicked
+        viewModel.navigate.observe(viewLifecycleOwner, Observer { photo ->
+            photo?.let {
+                this.findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+                // reset state to make sure we only navigate once even after configuration change
+                viewModel.navigationCompleted()
+            }
+
+        })
         return binding.root
 
     }

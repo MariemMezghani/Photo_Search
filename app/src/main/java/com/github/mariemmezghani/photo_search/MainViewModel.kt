@@ -12,6 +12,19 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
 
     private val currentQuery = MutableLiveData(DEFAULT_QUERY)
 
+    /**
+     * Variable that tells the Fragment to navigate to [DetailFragment]
+     * This is private because we do not want to set this value to the Fragment
+     */
+    private val _navigate = MutableLiveData<String?>()
+
+    /**
+     * If this is not null, immediately navigate to [DetailFragment]
+     * and then call navigationCompleted
+     */
+    val navigate: LiveData<String?>
+        get() = _navigate
+
     val photos = currentQuery.switchMap { queryString ->
         repository.getPhotos(queryString).cachedIn(viewModelScope)
     }
@@ -24,6 +37,14 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
     fun getPhotosList(query: String) {
         currentQuery.value = query
 
+    }
+
+    fun onItemClicked(photoId: String) {
+        _navigate.value = photoId
+    }
+
+    fun navigationCompleted() {
+        _navigate.value = null
     }
 
     companion object {
