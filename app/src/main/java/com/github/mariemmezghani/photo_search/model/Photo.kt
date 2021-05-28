@@ -1,3 +1,7 @@
 package com.github.mariemmezghani.photo_search.model
 
-data class Photo(val id:String, val url:String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Photo(val id:String, val url:String):Parcelable

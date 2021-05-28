@@ -6,6 +6,7 @@ import androidx.paging.cachedIn
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.ViewModel
+import com.github.mariemmezghani.photo_search.model.Photo
 
 
 class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
@@ -16,13 +17,13 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
      * Variable that tells the Fragment to navigate to [DetailFragment]
      * This is private because we do not want to set this value to the Fragment
      */
-    private val _navigate = MutableLiveData<String?>()
+    private val _navigate = MutableLiveData<Photo?>()
 
     /**
      * If this is not null, immediately navigate to [DetailFragment]
      * and then call navigationCompleted
      */
-    val navigate: LiveData<String?>
+    val navigate: LiveData<Photo?>
         get() = _navigate
 
     val photos = currentQuery.switchMap { queryString ->
@@ -39,8 +40,8 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
 
     }
 
-    fun onItemClicked(photoId: String) {
-        _navigate.value = photoId
+    fun onItemClicked(photo: Photo) {
+        _navigate.value = photo
     }
 
     fun navigationCompleted() {

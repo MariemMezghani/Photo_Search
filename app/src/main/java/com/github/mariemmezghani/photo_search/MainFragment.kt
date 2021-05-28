@@ -1,14 +1,11 @@
 package com.github.mariemmezghani.photo_search
 
 import android.app.SearchManager
-import android.content.Context
 import android.database.Cursor
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,8 +16,8 @@ import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
-    val adapter = PhotoAdapter(PhotoListener { photoId ->
-        viewModel.onItemClicked(photoId)
+    val adapter = PhotoAdapter(PhotoListener { photo ->
+        viewModel.onItemClicked(photo)
     })
 
     override fun onCreateView(
@@ -109,7 +106,7 @@ class MainFragment : Fragment() {
         // Add an Observer on the state variable when an item is clicked
         viewModel.navigate.observe(viewLifecycleOwner, Observer { photo ->
             photo?.let {
-                this.findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+                this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(it))
                 // reset state to make sure we only navigate once even after configuration change
                 viewModel.navigationCompleted()
             }

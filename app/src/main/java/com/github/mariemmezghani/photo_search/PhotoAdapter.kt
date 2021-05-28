@@ -41,6 +41,6 @@ class PhotoAdapter(val clickListener: PhotoListener) : PagingDataAdapter<Photo, 
         }
     }
 }
-class PhotoListener(val clickListener: (String) -> Unit){
-    fun onClick(photo:Photo)=clickListener(photo.id)
+class PhotoListener(val clickListener: (Photo) -> Unit){
+    fun onClick(photo:Photo)=clickListener(photo)
 }
