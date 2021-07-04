@@ -6,4 +6,16 @@
     <string name="no_results_found_for_this_query">No results found for this query</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="flickr">Photos provided by flickr.com</string>
+    <string name="overview_text">Photo_Search app displays photos for anything you are looking for.\n Type your search word on the SearchView and a list of related photos will be displayed.\n When clicking on a photo, you can see its details and download it to your gallery!</string>
+    <string name="Retrofit_overview">Type-safe HTTP client for Android and Java by Square,Inc.</string>
+    <string name="Picasso">Picasso</string>
+    <string name="Picasso_overview">A powerful image downloading and caching library for Android.</string>
+    <string name="Paging_Library">Paging Library</string>
+    <string name="Libraries">Libraries</string>
+    <string name="Paging_overview">Helps load and display small chunks of data at a time.</string>
+    <string name="Moshi">Moshi</string>
+    <string name="Moshi_overview">Modern JSON library for Android and Java.  It makes the process of Parsing and Converting a JSON object into Java and Kotlin objects much easier.</string>
+    <string name="retrofit">Retrofit</string>
+    <string name="overview">Overview</string>
 </resources>
