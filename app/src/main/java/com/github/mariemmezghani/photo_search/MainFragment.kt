@@ -3,9 +3,8 @@ package com.github.mariemmezghani.photo_search
 import android.app.SearchManager
 import android.database.Cursor
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -48,41 +47,6 @@ class MainFragment : Fragment() {
             adapter.submitData(this.lifecycle, it)
 
         }
-        binding.searchText.setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    // make sure the recycler view scrolls to position 0
-                    binding.photosRecyclerview.scrollToPosition(0)
-                    viewModel.getPhotosList(query)
-                    //remove keyboard
-                    binding.searchText.clearFocus()
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
-        })
-        binding.searchText
-                .setOnSuggestionListener(object :
-                        androidx.appcompat.widget.SearchView.OnSuggestionListener {
-                    override fun onSuggestionSelect(position: Int): Boolean {
-                        return true
-                    }
-
-                    // when the user clicks on a query from the search history, results are searched again
-                    override fun onSuggestionClick(position: Int): Boolean {
-                        val selectedView: androidx.cursoradapter.widget.CursorAdapter? =
-                                binding.searchText.getSuggestionsAdapter()
-                        val cursor: Cursor = selectedView?.getItem(position) as Cursor
-                        val index: Int =
-                                cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
-                        binding.searchText.setQuery(cursor.getString(index), true)
-                        return true
-                    }
-                })
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -112,9 +76,39 @@ class MainFragment : Fragment() {
             }
 
         })
+        setHasOptionsMenu(true)
         return binding.root
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu,menu)
+        val searchItem = menu.findItem(R.id.searchText)
+        val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
+        searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    // make sure the recycler view scrolls to position 0
+                    //binding.photosRecyclerview.scrollToPosition(0)
+                    viewModel.getPhotosList(query)
+                    //remove keyboard
+                    searchView.clearFocus()
+                }
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.about -> this.findNavController().navigate(R.id.action_mainFragment_to_aboutFragment)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
