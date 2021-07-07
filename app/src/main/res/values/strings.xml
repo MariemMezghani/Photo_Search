@@ -18,4 +18,7 @@
     <string name="Moshi_overview">Modern JSON library for Android and Java.  It makes the process of Parsing and Converting a JSON object into Java and Kotlin objects much easier.</string>
     <string name="retrofit">Retrofit</string>
     <string name="overview">Overview</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+
 </resources>

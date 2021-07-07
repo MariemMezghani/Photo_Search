@@ -1,10 +1,11 @@
 package com.github.mariemmezghani.photo_search
 
-import android.app.SearchManager
-import android.database.Cursor
+import android.app.Activity
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,28 +21,38 @@ class MainFragment : Fragment() {
     })
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentMainBinding.inflate(inflater)
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        val toggle = ActionBarDrawerToggle(
+            context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
+            R.string.close_drawer
+        )
+
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
         // get the view model
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
-                .get(MainViewModel::class.java)
+            .get(MainViewModel::class.java)
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
         binding.photosRecyclerview.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = PhotoLoadStateAdapter { adapter.retry() },
-                footer = PhotoLoadStateAdapter { adapter.retry() },
+            header = PhotoLoadStateAdapter { adapter.retry() },
+            footer = PhotoLoadStateAdapter { adapter.retry() },
         )
         binding.buttonRetry.setOnClickListener {
             adapter.retry()
         }
+
+
 
         viewModel.photos.observe(viewLifecycleOwner) {
             adapter.submitData(this.lifecycle, it)
@@ -57,8 +68,8 @@ class MainFragment : Fragment() {
 
                 // empty view
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                        loadState.append.endOfPaginationReached &&
-                        adapter.itemCount < 1
+                    loadState.append.endOfPaginationReached &&
+                    adapter.itemCount < 1
                 ) {
                     photosRecyclerview.isVisible = false
                     textViewEmpty.isVisible = true
@@ -70,20 +81,24 @@ class MainFragment : Fragment() {
         // Add an Observer on the state variable when an item is clicked
         viewModel.navigate.observe(viewLifecycleOwner, Observer { photo ->
             photo?.let {
-                this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(it))
+                this.findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToDetailFragment(
+                        it
+                    )
+                )
                 // reset state to make sure we only navigate once even after configuration change
                 viewModel.navigationCompleted()
             }
 
         })
         setHasOptionsMenu(true)
+
         return binding.root
 
     }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu,menu)
+        inflater.inflate(R.menu.menu_search,menu)
         val searchItem = menu.findItem(R.id.searchText)
         val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
         searchView.setOnQueryTextListener(object :
@@ -105,10 +120,4 @@ class MainFragment : Fragment() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.about -> this.findNavController().navigate(R.id.action_mainFragment_to_aboutFragment)
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }
