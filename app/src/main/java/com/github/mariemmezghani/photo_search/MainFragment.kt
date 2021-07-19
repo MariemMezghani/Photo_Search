@@ -30,10 +30,9 @@ class MainFragment : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
             context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
-            R.string.close_drawer
-        )
+            R.string.close_drawer)
 
-        binding.drawerLayout.addDrawerListener(toggle)
+         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         // get the view model
