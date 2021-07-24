@@ -3,7 +3,6 @@ package com.github.mariemmezghani.photo_search
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -13,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
+import com.github.mariemmezghani.photo_search.databinding.MotionMenuBinding
 
 class MainFragment : Fragment() {
+
     private lateinit var viewModel: MainViewModel
     val adapter = PhotoAdapter(PhotoListener { photo ->
         viewModel.onItemClicked(photo)
@@ -27,6 +28,7 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentMainBinding.inflate(inflater)
+        val binding2= MotionMenuBinding.inflate(inflater)
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
             context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
@@ -34,6 +36,11 @@ class MainFragment : Fragment() {
 
          binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        // menu click
+        binding2.textView5.setOnClickListener{
+            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
+        }
 
         // get the view model
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
@@ -118,5 +125,6 @@ class MainFragment : Fragment() {
             }
         })
     }
+
 
 }
