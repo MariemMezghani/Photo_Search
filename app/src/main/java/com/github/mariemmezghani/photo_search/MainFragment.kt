@@ -29,6 +29,9 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentMainBinding.inflate(inflater)
         val binding2= MotionMenuBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding2.lifecycleOwner = this
+
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
             context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
@@ -38,7 +41,7 @@ class MainFragment : Fragment() {
         toggle.syncState()
 
         // menu click
-        binding2.textView5.setOnClickListener{
+        binding2.aboutMenu.setOnClickListener{
             this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
         }
 
@@ -46,7 +49,6 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
             .get(MainViewModel::class.java)
 
-        binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 

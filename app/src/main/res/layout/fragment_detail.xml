@@ -30,7 +30,7 @@
                 app:photo="@{detailViewModel.selectedPhoto.url}" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/menu_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -42,18 +42,17 @@
                 android:textStyle="bold" />
         </FrameLayout>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="30dp"
-            android:text="Download"
+            android:padding="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="64dp"
+            android:src="@android:drawable/stat_sys_download"
+            android:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

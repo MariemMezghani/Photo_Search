@@ -6,22 +6,23 @@
 <com.github.mariemmezghani.photo_search.utils.DrawerContent
 
     android:id="@+id/menu"
-    android:layout_width="180dp"
+    android:layout_width="250dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:clickable="true"
+    >
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/menu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Photo Search"
+        android:textStyle="bold"
         android:textSize="20sp"
-        android:textStyle="italic"
-        android:typeface="serif"
         android:textColor="#FFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/by_flickr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,70 +31,71 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:layout_marginTop="16dp"
         android:text="Favorites"
-        app:fontFamily="sans-serif-smallcaps"
         android:textColor="#FFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/rate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textSize="18sp"
         android:text="Rate the app"
-        app:fontFamily="sans-serif-smallcaps"
-        android:textColor="#FFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+    android:textColor="#FFF"
+        app:layout_constraintBottom_toTopOf="@+id/about_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/favorites" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/about_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textSize="18sp"
         android:text="About"
-        app:fontFamily="sans-serif-smallcaps"
         android:textColor="#FFF"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/rate" />
 
     <View
         android:id="@+id/view"
         android:background="#c2c1c1"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/favorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/by_flickr" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/by_flickr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="by Flickr"
         android:textColor="#FFF"
-        app:fontFamily="cursive"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/menu_title" />
 </com.github.mariemmezghani.photo_search.utils.DrawerContent>
 </layout>
