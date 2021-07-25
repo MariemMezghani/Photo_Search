@@ -36,9 +36,10 @@ class MainFragment : Fragment() {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
             context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
-            R.string.close_drawer)
+            R.string.close_drawer
+        )
 
-         binding.drawerLayout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         // get the view model
@@ -98,7 +99,8 @@ class MainFragment : Fragment() {
 
         // menu click
         binding.menu.aboutMenu.setOnClickListener {
-            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
+            this.findNavController()
+                .navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
         }
 
 
@@ -107,9 +109,10 @@ class MainFragment : Fragment() {
         return binding.root
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_search,menu)
+        inflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu.findItem(R.id.searchText)
         val searchView = searchItem.actionView as androidx.appcompat.widget.SearchView
         searchView.setOnQueryTextListener(object :
