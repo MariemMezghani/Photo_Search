@@ -88,7 +88,9 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <include layout="@layout/motion_menu"/>
+        <include
+            android:id= "@+id/menu"
+            layout="@layout/motion_menu"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

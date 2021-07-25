@@ -3,6 +3,8 @@ package com.github.mariemmezghani.photo_search
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -12,7 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
-import com.github.mariemmezghani.photo_search.databinding.MotionMenuBinding
+import kotlinx.android.synthetic.main.motion_menu.*
+import kotlinx.android.synthetic.main.motion_menu.view.*
 
 class MainFragment : Fragment() {
 
@@ -21,6 +24,7 @@ class MainFragment : Fragment() {
         viewModel.onItemClicked(photo)
     })
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +32,7 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentMainBinding.inflate(inflater)
-        val binding2= MotionMenuBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        binding2.lifecycleOwner = this
-
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
         val toggle = ActionBarDrawerToggle(
             context as Activity?, binding.drawerLayout, binding.toolbar, R.string.open_drawer,
@@ -39,11 +40,6 @@ class MainFragment : Fragment() {
 
          binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
-        // menu click
-        binding2.aboutMenu.setOnClickListener{
-            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
-        }
 
         // get the view model
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
@@ -99,6 +95,13 @@ class MainFragment : Fragment() {
             }
 
         })
+
+        // menu click
+        binding.menu.aboutMenu.setOnClickListener {
+            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
+        }
+
+
         setHasOptionsMenu(true)
 
         return binding.root

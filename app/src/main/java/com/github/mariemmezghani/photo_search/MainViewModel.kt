@@ -14,6 +14,19 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
     private val currentQuery = MutableLiveData(DEFAULT_QUERY)
 
     /**
+     * Variable that tells the Fragment to navigate to [AboutFragment]
+     * This is private because we do not want to set this value to the Fragment
+     */
+    private val _menuClick = MutableLiveData<String?>()
+
+    /**
+     * If this is not null, immediately navigate to [AboutFragment]
+     * and then call navigationCompleted
+     */
+    val menuClick: LiveData<String?>
+        get() = _menuClick
+
+    /**
      * Variable that tells the Fragment to navigate to [DetailFragment]
      * This is private because we do not want to set this value to the Fragment
      */
@@ -47,6 +60,7 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
     fun navigationCompleted() {
         _navigate.value = null
     }
+
 
     companion object {
         private const val DEFAULT_QUERY = "nature"
