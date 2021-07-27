@@ -20,5 +20,10 @@
     <string name="overview">Overview</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+    <string name="photo_search">Photo Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="rate_the_app">Rate the app</string>
+    <string name="about">About</string>
+    <string name="by_flickr">by Flickr</string>
 
 </resources>

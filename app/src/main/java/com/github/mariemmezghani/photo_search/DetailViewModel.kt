@@ -15,22 +15,22 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.github.mariemmezghani.photo_search.model.Photo
 import com.github.mariemmezghani.photo_search.utils.sendNotification
-import kotlin.coroutines.coroutineContext
 
-class DetailViewModel (application: Application, photo: Photo) : AndroidViewModel(application){
+class DetailViewModel(application: Application, photo: Photo) : AndroidViewModel(application) {
     //define an instance of DownloadManager
     val downloadManager = application.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
     // notificationManager instance
     val notificationManager = getSystemService(
         application,
-            NotificationManager::class.java
+        NotificationManager::class.java
     ) as NotificationManager
     private val _selectedPhoto = MutableLiveData<Photo>()
     val selectedPhoto: LiveData<Photo>
-    get() = _selectedPhoto
+        get() = _selectedPhoto
+
     // BroadcastReciever instance
     val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -47,20 +47,21 @@ class DetailViewModel (application: Application, photo: Photo) : AndroidViewMode
     }
 
     init {
-        _selectedPhoto.value=photo
+        _selectedPhoto.value = photo
     }
+
     fun download(photo: Photo) {
         //generate a unique filename
         val filename = "${System.currentTimeMillis()}.jpg"
         val request = DownloadManager.Request(Uri.parse(photo.url))
-                .setTitle(filename)
-                .setDescription(photo.title)
-                // show notification bar when downloading
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                .setAllowedOverRoaming(true)
-                // download is allowed on mobile network
-                .setAllowedOverRoaming(true)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, filename)
+            .setTitle(filename)
+            .setDescription(photo.title)
+            // show notification bar when downloading
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setAllowedOverRoaming(true)
+            // download is allowed on mobile network
+            .setAllowedOverRoaming(true)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, filename)
 
 
         //enqueue function puts the download request in the queue and returns the rquest id
@@ -71,9 +72,9 @@ class DetailViewModel (application: Application, photo: Photo) : AndroidViewMode
     fun createChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
-                    channelId,
-                    channelName,
-                    NotificationManager.IMPORTANCE_LOW
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_LOW
             )
 
             notificationChannel.enableLights(true)

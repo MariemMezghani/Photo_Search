@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="photo"
             type="com.github.mariemmezghani.photo_search.model.Photo" />
+
         <variable
             name="clickListener"
             type="com.github.mariemmezghani.photo_search.PhotoListener" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,14 +21,14 @@
 
         <ImageView
             android:id="@+id/image"
-            android:onClick="@{() -> clickListener.onClick(photo)}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> clickListener.onClick(photo)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:photo="@{photo.url}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

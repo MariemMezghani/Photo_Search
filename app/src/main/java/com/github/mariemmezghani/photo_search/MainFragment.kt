@@ -3,8 +3,6 @@ package com.github.mariemmezghani.photo_search
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -14,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
-import kotlinx.android.synthetic.main.motion_menu.*
-import kotlinx.android.synthetic.main.motion_menu.view.*
 
 class MainFragment : Fragment() {
 
@@ -101,6 +97,7 @@ class MainFragment : Fragment() {
         binding.menu.aboutMenu.setOnClickListener {
             this.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
+
         }
 
 

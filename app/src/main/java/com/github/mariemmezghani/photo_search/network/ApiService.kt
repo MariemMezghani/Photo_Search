@@ -8,7 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-const val API_KEY=BuildConfig.API_KEY
+
+const val API_KEY = BuildConfig.API_KEY
+
 interface ApiService {
 
     @GET("?method=flickr.photos.search&api_key=$API_KEY&format=json&nojsoncallback=1&safe_search=1")

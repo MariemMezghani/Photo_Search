@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.mariemmezghani.photo_search.databinding.PhotoItemViewBinding
 
 
-class PhotoAdapter(val clickListener: PhotoListener) : PagingDataAdapter<Photo, PhotoAdapter.PhotoViewHolder>(DiffCallback) {
+class PhotoAdapter(val clickListener: PhotoListener) :
+    PagingDataAdapter<Photo, PhotoAdapter.PhotoViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             PhotoAdapter.PhotoViewHolder {
         return PhotoViewHolder(PhotoItemViewBinding.inflate(LayoutInflater.from(parent.context)))
@@ -18,7 +19,7 @@ class PhotoAdapter(val clickListener: PhotoListener) : PagingDataAdapter<Photo, 
     override fun onBindViewHolder(holder: PhotoAdapter.PhotoViewHolder, position: Int) {
         val photo = getItem(position)
         if (photo != null) {
-            holder.bind(photo,clickListener)
+            holder.bind(photo, clickListener)
         }
     }
 
@@ -26,7 +27,7 @@ class PhotoAdapter(val clickListener: PhotoListener) : PagingDataAdapter<Photo, 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo, clickListener: PhotoListener) {
             binding.photo = photo
-            binding.clickListener=clickListener
+            binding.clickListener = clickListener
 
         }
     }
@@ -41,6 +42,7 @@ class PhotoAdapter(val clickListener: PhotoListener) : PagingDataAdapter<Photo, 
         }
     }
 }
-class PhotoListener(val clickListener: (Photo) -> Unit){
-    fun onClick(photo:Photo)=clickListener(photo)
+
+class PhotoListener(val clickListener: (Photo) -> Unit) {
+    fun onClick(photo: Photo) = clickListener(photo)
 }
