@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -20,12 +21,12 @@ class MainFragment : Fragment() {
         viewModel.onItemClicked(photo)
     })
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -39,7 +40,10 @@ class MainFragment : Fragment() {
         toggle.syncState()
 
         // get the view model
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
+        val database = PhotoDatabase.getInstance(requireActivity().application)
+
+        // viewModel
+        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(database))
             .get(MainViewModel::class.java)
 
 

@@ -1,30 +1,20 @@
 package com.github.mariemmezghani.photo_search
 
+import android.app.Application
 import androidx.lifecycle.*
 import com.github.mariemmezghani.photo_search.repository.PhotosRepository
 import androidx.paging.cachedIn
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.ViewModel
+import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.model.Photo
 
-
+ //lateinit var database:PhotoDatabase
+ //private val repository= PhotosRepository(database = database)
 class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
 
     private val currentQuery = MutableLiveData(DEFAULT_QUERY)
-
-    /**
-     * Variable that tells the Fragment to navigate to [AboutFragment]
-     * This is private because we do not want to set this value to the Fragment
-     */
-    private val _menuClick = MutableLiveData<String?>()
-
-    /**
-     * If this is not null, immediately navigate to [AboutFragment]
-     * and then call navigationCompleted
-     */
-    val menuClick: LiveData<String?>
-        get() = _menuClick
 
     /**
      * Variable that tells the Fragment to navigate to [DetailFragment]

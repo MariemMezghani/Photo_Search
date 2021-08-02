@@ -1,5 +1,6 @@
 package com.github.mariemmezghani.photo_search
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.mariemmezghani.photo_search.repository.PhotosRepository
