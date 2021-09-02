@@ -1,7 +1,7 @@
 package com.github.mariemmezghani.photo_search
 
-import android.app.Application
 import androidx.lifecycle.ViewModelProvider
+import com.github.mariemmezghani.photo_search.database.PhotoDAO
 import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.network.ApiService
 import com.github.mariemmezghani.photo_search.repository.PhotosRepository
@@ -13,11 +13,10 @@ import com.github.mariemmezghani.photo_search.repository.PhotosRepository
  */
 
 object Injection {
-
     /**
      * Creates an instance of [PhotosRepository] based on the [ApiService]
      */
-    fun providePhotosRepository(photodb:PhotoDatabase?): PhotosRepository {
+    fun providePhotosRepository(photodb:PhotoDAO): PhotosRepository {
         return PhotosRepository(ApiService.create(), photodb)
     }
 
@@ -25,7 +24,7 @@ object Injection {
      * Provides the [ViewModelProvider.Factory] that is then used to get a reference to
      * [MainViewModel] objects.
      */
-    fun provideViewModelFactory(photodb: PhotoDatabase?): ViewModelProvider.Factory {
+    fun provideViewModelFactory(photodb: PhotoDAO): ViewModelProvider.Factory {
         return MainViewModelFactory(providePhotosRepository(photodb))
     }
 }

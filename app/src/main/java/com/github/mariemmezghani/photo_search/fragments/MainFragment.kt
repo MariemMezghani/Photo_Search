@@ -1,4 +1,4 @@
-package com.github.mariemmezghani.photo_search
+package com.github.mariemmezghani.photo_search.fragments
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.github.mariemmezghani.photo_search.*
 import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
 
@@ -39,13 +40,13 @@ class MainFragment : Fragment() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // get the view model
-        val database = PhotoDatabase.getInstance(requireActivity().application)
+        // database
+        val application = requireNotNull(this.activity).application
+        val database = PhotoDatabase.getInstance(application).photoDAO
 
         // viewModel
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(database))
             .get(MainViewModel::class.java)
-
 
         binding.viewModel = viewModel
 
@@ -56,8 +57,6 @@ class MainFragment : Fragment() {
         binding.buttonRetry.setOnClickListener {
             adapter.retry()
         }
-
-
 
         viewModel.photos.observe(viewLifecycleOwner) {
             adapter.submitData(this.lifecycle, it)
@@ -102,6 +101,9 @@ class MainFragment : Fragment() {
             this.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
 
+        }
+        binding.menu.favorites.setOnClickListener {
+            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToFavoritesFragment())
         }
 
 

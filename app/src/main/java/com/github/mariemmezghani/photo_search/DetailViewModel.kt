@@ -15,12 +15,17 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.github.mariemmezghani.photo_search.database.PhotoDatabase
+import com.github.mariemmezghani.photo_search.fragments.DetailFragment
 import com.github.mariemmezghani.photo_search.model.Photo
 import com.github.mariemmezghani.photo_search.utils.sendNotification
+import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application, photo: Photo) : AndroidViewModel(application) {
     //define an instance of DownloadManager
     val downloadManager = application.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+    val database = PhotoDatabase.getInstance(application).photoDAO
 
     // notificationManager instance
     val notificationManager = getSystemService(
@@ -85,5 +90,16 @@ class DetailViewModel(application: Application, photo: Photo) : AndroidViewModel
 
         }
     }
+    // add favorites to database
+     private suspend fun insertFavorite(photo:Photo){
+        database.insert(photo)
+
+    }
+    fun onAddFavorite(photo:Photo){
+        viewModelScope.launch { insertFavorite(photo) }
+
+    }
+
+
 
 }

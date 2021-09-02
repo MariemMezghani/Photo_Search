@@ -3,7 +3,7 @@ package com.github.mariemmezghani.photo_search.utils
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.github.mariemmezghani.photo_search.DetailFragment
+import com.github.mariemmezghani.photo_search.fragments.DetailFragment
 import com.github.mariemmezghani.photo_search.R
 
 // Notification ID.

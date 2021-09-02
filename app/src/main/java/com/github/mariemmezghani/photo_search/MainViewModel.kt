@@ -1,13 +1,11 @@
 package com.github.mariemmezghani.photo_search
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.github.mariemmezghani.photo_search.repository.PhotosRepository
 import androidx.paging.cachedIn
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.ViewModel
-import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.model.Photo
 
  //lateinit var database:PhotoDatabase
@@ -32,6 +30,7 @@ class MainViewModel(private val repository: PhotosRepository) : ViewModel() {
     val photos = currentQuery.switchMap { queryString ->
         repository.getPhotos(queryString).cachedIn(viewModelScope)
     }
+     val favorites=repository.favorites
 
     init {
         getPhotosList(currentQuery.value ?: "")
