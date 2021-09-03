@@ -90,16 +90,28 @@ class DetailViewModel(application: Application, photo: Photo) : AndroidViewModel
 
         }
     }
+
     // add favorites to database
-     private suspend fun insertFavorite(photo:Photo){
+    private suspend fun insertFavorite(photo: Photo) {
         database.insert(photo)
 
     }
-    fun onAddFavorite(photo:Photo){
+
+    fun onAddFavorite(photo: Photo) {
         viewModelScope.launch { insertFavorite(photo) }
 
     }
 
+    // remove favorites from database
+    private suspend fun removeFavorite(photo: Photo) {
+        database.delete(photo)
+
+    }
+
+    fun onDeleteFavorite(photo: Photo) {
+        viewModelScope.launch { removeFavorite(photo) }
+
+    }
 
 
 }

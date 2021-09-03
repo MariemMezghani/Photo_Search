@@ -13,6 +13,7 @@ import com.github.mariemmezghani.photo_search.DetailViewModelFactory
 import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.databinding.FragmentDetailBinding
 import com.sackcentury.shinebuttonlib.ShineButton
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
 
@@ -24,9 +25,10 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
         val photo = DetailFragmentArgs.fromBundle(requireArguments()).photo
+        if (photo.isFavorite) {
+            binding.favouriteButton.isChecked = true
+        }
         val application = requireActivity().application
-        // database
-        val database = PhotoDatabase.getInstance(application).photoDAO
 
         val factory = DetailViewModelFactory(application = application, photo = photo)
         val detailViewModel =
@@ -45,8 +47,15 @@ class DetailFragment : Fragment() {
         }
 
         binding.favouriteButton.setOnClickListener {
-            detailViewModel.onAddFavorite(photo)
+            if (binding.favouriteButton.isChecked) {
+                photo.isFavorite = true
+                detailViewModel.onAddFavorite(photo)
+            } else {
+                photo.isFavorite = false
+                detailViewModel.onDeleteFavorite(photo)
+            }
         }
+
 
 
 

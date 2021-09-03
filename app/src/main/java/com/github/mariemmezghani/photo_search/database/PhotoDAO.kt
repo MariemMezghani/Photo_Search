@@ -1,10 +1,7 @@
 package com.github.mariemmezghani.photo_search.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.github.mariemmezghani.photo_search.model.Photo
 
 @Dao
@@ -17,4 +14,8 @@ interface PhotoDAO {
     // insert a favorite photo to database
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(photo: Photo)
+
+    // delete a favorite photo to database
+    @Delete
+    suspend fun delete(photo: Photo)
 }

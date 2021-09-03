@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "favorites_table")
-data class Photo(@PrimaryKey val id: String, val url: String, val title: String) : Parcelable
+data class Photo(@PrimaryKey val id: String, val url: String, val title: String, var isFavorite:Boolean) : Parcelable

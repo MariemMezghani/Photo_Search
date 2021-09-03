@@ -15,8 +15,8 @@ fun List<PhotoResponse>.asDomainModel(): List<Photo> {
         Photo(
             it.id,
             "https://farm${it.farm}.staticflickr.com/${it.server}/${it.id}_${it.secret}.jpg",
-            it.title
-
+            it.title,
+            isFavorite = false
         )
     }
 }
