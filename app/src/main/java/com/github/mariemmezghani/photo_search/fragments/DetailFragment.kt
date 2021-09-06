@@ -10,10 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.mariemmezghani.photo_search.DetailViewModel
 import com.github.mariemmezghani.photo_search.DetailViewModelFactory
-import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.databinding.FragmentDetailBinding
-import com.sackcentury.shinebuttonlib.ShineButton
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
 
@@ -55,11 +52,6 @@ class DetailFragment : Fragment() {
                 detailViewModel.onDeleteFavorite(photo)
             }
         }
-
-
-
-
-
 
         return binding.root
     }

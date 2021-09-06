@@ -7,7 +7,7 @@ import com.github.mariemmezghani.photo_search.model.Photo
 @Dao
 interface PhotoDAO {
 
-     // get all saved photos
+    // get all saved photos
     @Query("select * FROM favorites_table")
     fun getPhotos(): LiveData<List<Photo>>
 

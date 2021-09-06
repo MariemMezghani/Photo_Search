@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import com.github.mariemmezghani.photo_search.*
 import com.github.mariemmezghani.photo_search.database.PhotoDatabase
 import com.github.mariemmezghani.photo_search.databinding.FragmentMainBinding
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
@@ -100,10 +101,13 @@ class MainFragment : Fragment() {
         binding.menu.aboutMenu.setOnClickListener {
             this.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToAboutFragment())
+            binding.drawerLayout.close()
 
         }
         binding.menu.favorites.setOnClickListener {
-            this.findNavController().navigate(MainFragmentDirections.actionMainFragmentToFavoritesFragment())
+            this.findNavController()
+                .navigate(MainFragmentDirections.actionMainFragmentToFavoritesFragment())
+            binding.drawerLayout.close()
         }
 
 

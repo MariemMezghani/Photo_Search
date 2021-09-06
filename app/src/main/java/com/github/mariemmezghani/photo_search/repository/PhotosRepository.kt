@@ -19,5 +19,5 @@ class PhotosRepository(private val service: ApiService, private val database: Ph
         pagingSourceFactory = { PhotoPagingSource(service, query) }
     ).liveData
 
-    val favorites:LiveData<List<Photo>> = database.getPhotos()
+    val favorites: LiveData<List<Photo>> = database.getPhotos()
 }                 

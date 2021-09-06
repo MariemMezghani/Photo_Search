@@ -9,7 +9,7 @@ import com.github.mariemmezghani.photo_search.databinding.PhotoItemViewBinding
 import com.github.mariemmezghani.photo_search.model.Photo
 
 
-class FavoritesAdapter: ListAdapter<Photo, FavoritesAdapter.FavoritesViewHolder>(DiffCallback) {
+class FavoritesAdapter : ListAdapter<Photo, FavoritesAdapter.FavoritesViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -18,10 +18,11 @@ class FavoritesAdapter: ListAdapter<Photo, FavoritesAdapter.FavoritesViewHolder>
     }
 
     override fun onBindViewHolder(holder: FavoritesAdapter.FavoritesViewHolder, position: Int) {
-        val photo= getItem(position)
+        val photo = getItem(position)
         holder.bind(photo)
 
     }
+
     companion object DiffCallback : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             return oldItem === newItem
@@ -31,9 +32,11 @@ class FavoritesAdapter: ListAdapter<Photo, FavoritesAdapter.FavoritesViewHolder>
             return oldItem.id == newItem.id
         }
     }
-    class FavoritesViewHolder(private var binding:PhotoItemViewBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(photo:Photo){
-            binding.photo=photo
+
+    class FavoritesViewHolder(private var binding: PhotoItemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(photo: Photo) {
+            binding.photo = photo
             binding.executePendingBindings()
         }
 

@@ -14,7 +14,7 @@ import com.github.mariemmezghani.photo_search.databinding.FragmentFavoritesBindi
 
 class FavoritesFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
-    val adapter=FavoritesAdapter()
+    val adapter = FavoritesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +22,7 @@ class FavoritesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentFavoritesBinding.inflate(inflater)
+        binding.toolbar.title = "Favorites"
         // database
         val application = requireNotNull(this.activity).application
         val database = PhotoDatabase.getInstance(application).photoDAO
@@ -29,9 +30,9 @@ class FavoritesFragment : Fragment() {
         viewModel = ViewModelProvider(this, Injection.provideViewModelFactory(database))
             .get(MainViewModel::class.java)
 
-        binding.favoritesRecyclerview.adapter= adapter
-binding.viewModel=viewModel
-        viewModel.favorites.observe(viewLifecycleOwner){
+        binding.favoritesRecyclerview.adapter = adapter
+        binding.viewModel = viewModel
+        viewModel.favorites.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
