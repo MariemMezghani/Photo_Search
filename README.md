@@ -40,6 +40,24 @@ When the user clicks on the ShineButton, the image is stored on a local database
 - MVVM architecture was used to separate responsibilities amongst classes. When the user rotates the screen, the UI data does not change. 
 When the user rotates the screen, the scroll position of the RecyclerView does not change.
 
+# Libraries:
+
+- Retrofit library to download the data from the Internet
+- Moshi to convert the JSON data we are downloading to usable data in the form of custom classes
+- Picasso library to download and cache image
+- Paging Library for infinite scrolling
+- Mockito Library for testing
+- shinebutton Library
+
+# Built With
+
+- AndroidX Room
+- AndroidX Navigation
+- KotlinX Coroutines
+- AndroidX ViewModel
+- AndroidX RecyclerView
+- MotionLayout
+
 # License
 
 Copyright 2021 Mariem Mezghani
