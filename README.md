@@ -39,3 +39,13 @@ When the user clicks on the ShineButton, the image is stored on a local database
 
 - MVVM architecture was used to separate responsibilities amongst classes. When the user rotates the screen, the UI data does not change. 
 When the user rotates the screen, the scroll position of the RecyclerView does not change.
+
+# License
+
+Copyright 2021 Mariem Mezghani
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
